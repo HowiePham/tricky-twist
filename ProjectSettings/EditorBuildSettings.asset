@@ -12,5 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TrickyTwist.unity
     guid: 8fc1ef8c074b21f48b6afd7290e8653c
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 1173c847841d51f4c9bdf6c4e8a1ec77, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

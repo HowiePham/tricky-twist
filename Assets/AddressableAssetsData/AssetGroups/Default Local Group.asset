@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3bc9a91ae1ce7334eb20a593c3bdeb48
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L001/Audio/scream_female.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d7d044fe893dfe5419b1aff0b67930fb, type: 2}
   m_SchemaSet:
