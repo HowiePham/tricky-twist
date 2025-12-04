@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fc3f1ea962737e84dbb0f4ae93bb3527
+guid: 2f42c53307423d54489f3d212f8e4f30
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6458322295586883619
-    second: MIENG-SUNG_0
+      213: -7757294850289808332
+    second: boy_full_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 3
-  spritePivot: {x: 1, y: 1}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MIENG-SUNG_0
+      name: boy_full_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 278
-        height: 187
+        width: 297
+        height: 998
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 328017109e190a950800000000000000
-      internalID: 6458322295586883619
+      spriteID: 43c428efe6d885490800000000000000
+      internalID: -7757294850289808332
       vertices: []
       indices: 
       edges: []
@@ -152,7 +152,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MIENG-SUNG_0: 6458322295586883619
+      boy_full_0: -7757294850289808332
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
