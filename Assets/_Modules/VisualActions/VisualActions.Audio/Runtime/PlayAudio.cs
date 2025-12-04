@@ -12,6 +12,7 @@ namespace Mimi.VisualActions.Audio
         [SerializeField, Range(0f, 1f)] private float volume = 1f;
         [SerializeField, Range(0f, 5f)] private float pitch = 1f;
         [SerializeField] private float delaySeconds = 0f;
+        [SerializeField] private bool playSound = true;
 
         [SerializeField] private BaseAudioServiceSO audioPlayer;
 
@@ -23,7 +24,14 @@ namespace Mimi.VisualActions.Audio
 
         void PlaySound()
         {
-            this.audioPlayer.PlaySound(this.soundKey, this.volume, this.pitch);
+            if (this.playSound)
+            {
+                this.audioPlayer.PlaySound(this.soundKey, this.volume, this.pitch);
+            }
+            else
+            {
+                this.audioPlayer.StopSound(this.soundKey);
+            }
         }
     }
 }

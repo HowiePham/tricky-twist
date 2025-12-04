@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 1
-  levelRoot: {fileID: 0}
+  levelRoot: {fileID: 1756251088}
   levelPrefab:
   - {fileID: 4168905815759255200, guid: ce74b9877f109114ba5f42902dce2b29, type: 3}
   - {fileID: 3877535764436832396, guid: 71228e289c148ed4ea27b405dd49fc0c, type: 3}
@@ -1102,6 +1102,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741164020}
   m_CullTransparentMesh: 1
+--- !u!1 &1756251088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3877535764436832396, guid: 71228e289c148ed4ea27b405dd49fc0c, type: 3}
+  m_PrefabInstance: {fileID: 516326877176782133}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1822913653
 GameObject:
   m_ObjectHideFlags: 0
