@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9aacdb5ee2ba0cb4493f80cc2ea60cac
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L001/Audio/WifeAngry.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d7d044fe893dfe5419b1aff0b67930fb, type: 2}
   m_SchemaSet:
