@@ -1,5 +1,4 @@
 ﻿using Mimi.Audio;
-using Mimi.Interactions.Dragging;
 using Mimi.Interactions.Dragging.DraggableExtensions;
 using Mimi.Services.ScriptableObject.Audio;
 using Mimi.VisualActions.Attribute;
@@ -20,6 +19,7 @@ namespace Mimi.VisualActions.Interactions.Draggable.Extensions
         
         public override void StartDrag()
         {
+            Debug.Log($"--- (DRAG) Start audio dragging");
             audioService.PlaySound(selectSound);
         }
 

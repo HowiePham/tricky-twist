@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Mimi.Interactions.Dragging.DraggableExtensions
 {
     public class CompositeDraggableExtension : MonoDraggableExtension, IParentDraggableExtension
     {
         [SerializeField] private MonoDraggableExtension[] draggableExtensions;
+
         public override void Init(BaseDraggable draggable)
         {
             foreach (var draggableExtension in this.draggableExtensions)
@@ -46,7 +48,16 @@ namespace Mimi.Interactions.Dragging.DraggableExtensions
                     return extension;
                 }
             }
+
             return null;
         }
+
+#if UNITY_EDITOR
+        [Button]
+        private void GetAllExtensions()
+        {
+            this.draggableExtensions = GetComponentsInChildren<MonoDraggableExtension>();
+        }
+#endif
     }
 }

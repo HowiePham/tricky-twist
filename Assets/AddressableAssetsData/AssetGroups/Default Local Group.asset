@@ -15,6 +15,26 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: a4f3a338e06c0d54d80f2c58f7189efc
   m_SerializeEntries:
+  - m_GUID: 03e11d2e87149884fa2514b5ca9d3ba3
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/MassageMachine.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0960cb09f7a58d24b9a5c45ff49d9725
+    m_Address: Assets/_Modules/TrickyTwist/Levels/_Shared/Audio/ClankClankClank.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 09c96c49698033743b7ab3dda41ecb1f
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/FightingSound.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 239e4e51d0203b34a9e70b6ee105b33b
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/Mosquito.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2cbf6a4ce0b2e5742906cbd133d50bda
     m_Address: Assets/_Modules/TrickyTwist/Levels/L001/Audio/fight 3.mp3
     m_ReadOnly: 0
@@ -25,13 +45,78 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a50257f871582d4684d1758b1781c27
+    m_Address: Assets/_Modules/TrickyTwist/Levels/_Shared/Audio/Win.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4bc59290ac170ff43b02dda4d9e6b2fd
+    m_Address: Assets/_Modules/TrickyTwist/Levels/_Shared/Audio/Lose.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ca289b6c3bd8cf47a06841c037a21bd
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/Bite.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 545c9e001218bfc4cb423f210f677ae0
     m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/Spray.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 742d7db10d9c37f448c1d03b39460372
+    m_Address: Assets/_Modules/TrickyTwist/Levels/_Shared/Audio/Pop1.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e63a80ca3d24764d9e2db3fee323a8a
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/IceFreezing.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 95085d67bb041a94ab9c8275b7d84b94
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/GirlOuch.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9aacdb5ee2ba0cb4493f80cc2ea60cac
     m_Address: Assets/_Modules/TrickyTwist/Levels/L001/Audio/WifeAngry.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a07e500a7ec16814584f506911898c02
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/DoorSlam.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1f6c3dbc4171c24c9e04a1cbdf840e7
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/CabinetDoor.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d069749af79d7444b8ec0d19a1b49dd0
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/HandPump.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d2fc98837cd726442b8497b562b11e69
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/Bee.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8b8b4beec6e6ca4aa69899f2e299746
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/CloudMagic.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4bd83da45d9d094083b27647beb69f1
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/Plunger.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe18a832d465d354d961c6c7d421ff43
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/OpeningRefrigeratorDoor.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
