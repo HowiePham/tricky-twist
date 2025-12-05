@@ -638,7 +638,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   soundKey: Bg_Comedy
-  volume: 0.4
+  volume: 1
   pitch: 1
   delaySeconds: 0
   playSound: 1

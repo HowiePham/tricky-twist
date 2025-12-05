@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e2128623d9c0a5478c95f0a44f6f4cf
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L003/Audio/BirdChipping.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 239e4e51d0203b34a9e70b6ee105b33b
     m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/Mosquito.mp3
     m_ReadOnly: 0
@@ -42,6 +47,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 290df1d77d1b3a84a8277f1fcd53075d
     m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/LipMask.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b5d9519dbc02714ca566686106813b9
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L003/Audio/UhMeme.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -80,13 +90,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b3d59e995e374d4184ea13144b6cc35
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L003/Audio/Eating.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 742d7db10d9c37f448c1d03b39460372
     m_Address: Assets/_Modules/TrickyTwist/Levels/_Shared/Audio/Pop1.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d0f655c2a0fb91448cb8500b31e2482
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L003/Audio/BirdNestMovement.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 806254a5b22604244980dc526aba7f1f
     m_Address: Assets/_Modules/TrickyTwist/Levels/L001/Audio/PhoneRinging.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80af333971d4aa947b582fe5701f30c1
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L003/Audio/GirlGiggling.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -110,6 +135,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae006b02d0f042e4694c311906ee57cd
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L003/Audio/CarEngineStart.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c1f6c3dbc4171c24c9e04a1cbdf840e7
     m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/CabinetDoor.mp3
     m_ReadOnly: 0
@@ -127,6 +157,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d8b8b4beec6e6ca4aa69899f2e299746
     m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/CloudMagic.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: efcf440a634c52740982a374d2b383a2
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L003/Audio/GlassBreaking.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
