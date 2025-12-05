@@ -21,7 +21,7 @@ public class GameScene : MonoBehaviour
     private void NextLevel()
     {
         this.currentLevel++;
-        if (this.currentLevel > this.levelPrefab.Length)
+        if (this.currentLevel >= this.levelPrefab.Length)
         {
             this.currentLevel = this.levelPrefab.Length - 1;
         }
