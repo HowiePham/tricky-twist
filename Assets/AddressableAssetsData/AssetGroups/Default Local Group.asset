@@ -40,6 +40,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 290df1d77d1b3a84a8277f1fcd53075d
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/LipMask.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2cbf6a4ce0b2e5742906cbd133d50bda
     m_Address: Assets/_Modules/TrickyTwist/Levels/L001/Audio/fight 3.mp3
     m_ReadOnly: 0
@@ -67,6 +72,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 545c9e001218bfc4cb423f210f677ae0
     m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/Spray.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 571db837dbbb457408ca396e8114bd2a
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/InflateBaloon.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

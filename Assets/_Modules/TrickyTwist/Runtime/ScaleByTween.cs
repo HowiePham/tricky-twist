@@ -13,6 +13,6 @@ public class ScaleByTween : VisualAction
     protected override async UniTask OnExecuting(CancellationToken cancellationToken)
     {
         await UniTask.CompletedTask;
-        go.DOScale(targetScale, duration);
+        await go.DOScale(targetScale, duration).AsyncWaitForCompletion();
     }
 }
