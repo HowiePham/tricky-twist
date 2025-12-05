@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 136c37778ea3d2c49a5e1f0ceedbf00f
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L001/Audio/OpenWindow.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 239e4e51d0203b34a9e70b6ee105b33b
     m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/Mosquito.mp3
     m_ReadOnly: 0
@@ -70,6 +75,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 806254a5b22604244980dc526aba7f1f
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L001/Audio/PhoneRinging.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8e63a80ca3d24764d9e2db3fee323a8a
     m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/IceFreezing.mp3
     m_ReadOnly: 0
@@ -107,6 +117,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d8b8b4beec6e6ca4aa69899f2e299746
     m_Address: Assets/_Modules/TrickyTwist/Levels/L002/Audio/CloudMagic.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f182673221639a94f8ca3f24b88550da
+    m_Address: Assets/_Modules/TrickyTwist/Levels/L001/Audio/TV_On.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
