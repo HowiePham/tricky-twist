@@ -63,6 +63,15 @@ public class ColorRevealController : MonoBehaviour
         RevealColorAt(position, maxRevealRadius);
     }
 
+    public void RevealAllColor()
+    {
+        foreach (RevealCircle revealCircle in this.activeReveals)
+        {
+            revealCircle.isExpanding = true;
+            revealCircle.targetRadius = this.maxRevealRadius;
+        }
+    }
+
     public void RevealColorAt(Vector3 position, float customRadius)
     {
         // Nếu đã đạt max reveals, xóa cái cũ nhất
