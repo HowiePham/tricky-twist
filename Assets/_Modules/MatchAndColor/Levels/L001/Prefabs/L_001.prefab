@@ -213,15 +213,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e80d2712ed482a99968e879ff17cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  revealMaterial: {fileID: 2100000, guid: 513582886cea5f94bb508a767bd3bebe, type: 2}
+  revealMaterial: {fileID: 2100000, guid: 8f505746721d80f47858f4aea24a2ae0, type: 2}
   revealSpeed: 5
-  maxRevealRadius: 8.5
+  maxRevealRadius: 20
   maxReveals: 2
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
   showDebugCircles: 1
   debugCircleColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  audioSource: {fileID: 0}
+  revealSound: {fileID: 0}
 --- !u!1 &1573893063220475190
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,6 +983,7 @@ Transform:
   - {fileID: 1292178634000477219}
   - {fileID: 8327779792173476426}
   - {fileID: 1888989291325762712}
+  - {fileID: 2472007047650668924}
   m_Father: {fileID: 5722687971501461611}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6266327293267048194
@@ -1463,7 +1466,7 @@ MonoBehaviour:
       m_Calls: []
   targetPos: {fileID: 4340690193207752281}
   colorRevealController: {fileID: 1764789962071284887}
-  customRevealRadius: 8.28
+  customRevealRadius: 10
   useCustomRevealRadius: 1
 --- !u!1 &7514709484260448971
 GameObject:
@@ -1520,7 +1523,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 513582886cea5f94bb508a767bd3bebe, type: 2}
+  - {fileID: 2100000, guid: 8f505746721d80f47858f4aea24a2ae0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1598,6 +1601,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkTransform: {fileID: 7161001761565709360}
   targetArea: {fileID: 1946066259692352628}
+--- !u!1 &8398283628944212171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2472007047650668924}
+  - component: {fileID: 1510091980984308330}
+  m_Layer: 0
+  m_Name: FadeObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2472007047650668924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8398283628944212171}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.28, y: -0.69, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 4512773595368701271}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1510091980984308330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8398283628944212171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616268c33cc14b03a079eefe2be40956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  target: {fileID: 1703751378922142688}
+  startAlpha: 1
+  endAlpha: 0
+  ease: 5
+  duration: 1.5
 --- !u!1 &8426899429953826627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1956,7 +2014,8 @@ PrefabInstance:
       value: Win_Sequence
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4376780272788337775, guid: 30130a07194e4614eb29abe2b8e35781, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30130a07194e4614eb29abe2b8e35781, type: 3}

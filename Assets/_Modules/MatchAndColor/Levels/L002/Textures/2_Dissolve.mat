@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ColorRevealMaterial
-  m_Shader: {fileID: 4800000, guid: 15f5c42d7149f674fabb721f376e7652, type: 3}
+  m_Name: 2_Dissolve
+  m_Shader: {fileID: 4800000, guid: 3795cd6b244afa64e88f87344608dd3e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -41,13 +41,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DissolveContrast: 0.5
+    - _DissolveEdgeWidth: 0.01
+    - _DissolveNoiseScale: 2.43
+    - _DissolveSpeed: 2.5
+    - _EdgeGlowIntensity: 0
     - _EnableExternalAlpha: 0
     - _GrayscaleAmount: 1
-    - _RevealRadius: 0
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EdgeGlowColor: {r: 0.51886773, g: 0.46608722, b: 0.29125124, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RevealPos: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
