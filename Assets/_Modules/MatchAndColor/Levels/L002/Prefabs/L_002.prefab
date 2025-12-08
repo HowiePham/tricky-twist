@@ -371,7 +371,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 21.5, y: 21.5, z: 21.5}
+  m_LocalScale: {x: 55, y: 55, z: 55}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 565599403430923537}
@@ -4468,7 +4468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   revealMaterial: {fileID: 2100000, guid: fc450fb2f6de76f4683ec896245d342c, type: 2}
-  revealSpeed: 3
+  revealSpeed: 5
   maxRevealRadius: 8.5
   maxReveals: 50
   objectLayer:
@@ -4563,6 +4563,57 @@ MonoBehaviour:
   completeCondition: {fileID: 3511384764218935294}
   dragExtension: {fileID: 5868356585584907060}
   isCheckCompleteWhenDrag: 0
+--- !u!1 &9158399815198599474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3914263592781627975}
+  - component: {fileID: 770634742370309034}
+  m_Layer: 0
+  m_Name: WaitSeconds (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3914263592781627975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9158399815198599474}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6993805883046817176}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &770634742370309034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9158399815198599474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb2ceffe41c4519bc7129c61d753fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  seconds: 1
 --- !u!1001 &1659812245953457935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4766,6 +4817,9 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4038147803959873399, guid: 30130a07194e4614eb29abe2b8e35781, type: 3}
       insertIndex: 0
+      addedObject: {fileID: 3914263592781627975}
+    - targetCorrespondingSourceObject: {fileID: 4038147803959873399, guid: 30130a07194e4614eb29abe2b8e35781, type: 3}
+      insertIndex: 1
       addedObject: {fileID: 5768509816475642047}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30130a07194e4614eb29abe2b8e35781, type: 3}
