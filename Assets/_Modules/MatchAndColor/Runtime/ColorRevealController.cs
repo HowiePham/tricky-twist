@@ -5,16 +5,29 @@ using System.Collections.Generic;
 
 public class ColorRevealController : MonoBehaviour
 {
-    [Header("References")] public Material revealMaterial; // Material sử dụng ColorRevealMultiple shader
+    [Header("References")] 
+    public Material revealMaterial; // Material sử dụng ColorRevealInk_Dissolve shader
 
-    [Header("Reveal Settings")] public float revealSpeed = 3f; // Tốc độ màu loang ra
+    [Header("Reveal Settings")] 
+    public float revealSpeed = 3f; // Tốc độ màu loang ra
     public float maxRevealRadius = 5f; // Bán kính tối đa mỗi vòng tròn
     public int maxReveals = 20; // Số lượng vòng tròn tối đa
+    
+    [Header("Easing Settings")]
+    [Tooltip("Đường cong easing - càng cao càng chậm dần ở cuối")]
+    [Range(1.0f, 4.0f)]
+    public float easingPower = 2.0f; // Power cho ease out (2 = quadratic, 3 = cubic)
 
-    [Header("Object Detection")] public LayerMask objectLayer; // Layer của các đồ vật cần tìm
+    [Header("Object Detection")] 
+    public LayerMask objectLayer; // Layer của các đồ vật cần tìm
 
-    [Header("Visual Effects")] public bool showDebugCircles = true; // Hiển thị vòng tròn debug
+    [Header("Visual Effects")] 
+    public bool showDebugCircles = true; // Hiển thị vòng tròn debug
     public Color debugCircleColor = Color.yellow;
+
+    [Header("Audio (Optional)")] 
+    public AudioSource audioSource;
+    public AudioClip revealSound;
 
     private List<RevealCircle> activeReveals = new List<RevealCircle>();
     private Vector4[] revealPositionsArray; // Array để gửi lên shader
@@ -25,6 +38,8 @@ public class ColorRevealController : MonoBehaviour
         public Vector3 position;
         public float currentRadius;
         public float targetRadius;
+        public float startRadius; // Radius khi bắt đầu expand (để tính easing)
+        public float progress; // 0 -> 1, dùng cho easing trong range [startRadius -> targetRadius]
         public bool isExpanding;
         public float lifetime; // Thời gian tồn tại
 
@@ -32,7 +47,9 @@ public class ColorRevealController : MonoBehaviour
         {
             position = pos;
             currentRadius = 0f;
+            startRadius = 0f;
             targetRadius = maxRadius;
+            progress = 0f;
             isExpanding = true;
             lifetime = 0f;
         }
@@ -42,7 +59,7 @@ public class ColorRevealController : MonoBehaviour
     {
         if (revealMaterial == null)
         {
-            Debug.LogError("Please assign a material with ColorRevealMultiple shader!");
+            Debug.LogError("Please assign a material with ColorRevealInk_Dissolve shader!");
             return;
         }
 
@@ -53,7 +70,7 @@ public class ColorRevealController : MonoBehaviour
         revealMaterial.SetInt("_RevealCount", 0);
     }
 
-    private void Update()
+    void Update()
     {
         UpdateRevealCircles();
     }
@@ -61,15 +78,6 @@ public class ColorRevealController : MonoBehaviour
     public void RevealColorAt(Vector3 position)
     {
         RevealColorAt(position, maxRevealRadius);
-    }
-
-    public void RevealAllColor()
-    {
-        foreach (RevealCircle revealCircle in this.activeReveals)
-        {
-            revealCircle.isExpanding = true;
-            revealCircle.targetRadius = this.maxRevealRadius;
-        }
     }
 
     public void RevealColorAt(Vector3 position, float customRadius)
@@ -85,6 +93,12 @@ public class ColorRevealController : MonoBehaviour
         activeReveals.Add(newReveal);
     }
 
+    // Ease Out function - chậm dần khi gần đến target
+    float EaseOut(float t, float power)
+    {
+        return 1f - Mathf.Pow(1f - t, power);
+    }
+
     void UpdateRevealCircles()
     {
         // Update tất cả các reveal circles
@@ -95,11 +109,30 @@ public class ColorRevealController : MonoBehaviour
 
             if (reveal.isExpanding)
             {
-                // Mở rộng radius
-                reveal.currentRadius += revealSpeed * Time.deltaTime;
-
-                if (reveal.currentRadius >= reveal.targetRadius)
+                float distanceToTravel = reveal.targetRadius - reveal.startRadius;
+                
+                if (distanceToTravel > 0.01f)
                 {
+                    // Tăng progress trong range 0->1
+                    float progressIncrement = (revealSpeed / distanceToTravel) * Time.deltaTime;
+                    reveal.progress += progressIncrement;
+
+                    if (reveal.progress >= 1f)
+                    {
+                        reveal.progress = 1f;
+                        reveal.currentRadius = reveal.targetRadius;
+                        reveal.isExpanding = false;
+                    }
+                    else
+                    {
+                        // Apply easing chỉ trong range [startRadius -> targetRadius]
+                        float easedProgress = EaseOut(reveal.progress, easingPower);
+                        reveal.currentRadius = reveal.startRadius + (easedProgress * distanceToTravel);
+                    }
+                }
+                else
+                {
+                    // Đã đến target
                     reveal.currentRadius = reveal.targetRadius;
                     reveal.isExpanding = false;
                 }
@@ -206,5 +239,35 @@ public class ColorRevealController : MonoBehaviour
     public int GetFoundObjectsCount()
     {
         return activeReveals.Count;
+    }
+
+    public void RevealAllColor()
+    {
+        Debug.Log("=== RevealAllColor called ===");
+        foreach (RevealCircle revealCircle in this.activeReveals)
+        {
+            Debug.Log($"Circle - Current: {revealCircle.currentRadius}, Target: {revealCircle.targetRadius}, Max: {maxRevealRadius}");
+            
+            // Nếu chưa đạt maxRevealRadius, tiếp tục expand
+            if (revealCircle.currentRadius < maxRevealRadius - 0.01f)
+            {
+                // Set startRadius = currentRadius (điểm bắt đầu mới)
+                revealCircle.startRadius = revealCircle.currentRadius;
+                
+                // Set target mới
+                revealCircle.targetRadius = maxRevealRadius;
+                
+                // Reset progress về 0 để bắt đầu easing mới từ startRadius -> targetRadius
+                revealCircle.progress = 0f;
+                
+                revealCircle.isExpanding = true;
+                
+                Debug.Log($"  -> Updated: Start={revealCircle.startRadius}, Target={revealCircle.targetRadius}, Progress=0");
+            }
+            else
+            {
+                Debug.Log($"  -> Already at max, skipping");
+            }
+        }
     }
 }
