@@ -217,6 +217,7 @@ MonoBehaviour:
   revealSpeed: 5
   maxRevealRadius: 20
   maxReveals: 2
+  easingPower: 3
   objectLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -1656,6 +1657,7 @@ MonoBehaviour:
   endAlpha: 0
   ease: 5
   duration: 1.5
+  waitUntilCompleted: 1
 --- !u!1 &8426899429953826627
 GameObject:
   m_ObjectHideFlags: 0

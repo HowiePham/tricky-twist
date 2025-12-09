@@ -13,7 +13,7 @@ public class RevealColorAtPos : VisualAction
 
     protected override async UniTask OnExecuting(CancellationToken cancellationToken)
     {
-        this.colorRevealController.RevealColorAt(this.targetPos.position,this.customRevealRadius);
+        this.colorRevealController.RevealColorAt(this.targetPos.position, this.customRevealRadius);
     }
 
 #if UNITY_EDITOR
