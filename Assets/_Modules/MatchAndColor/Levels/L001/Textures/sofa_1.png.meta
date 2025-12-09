@@ -1,37 +1,10 @@
 fileFormatVersion: 2
-guid: af323afed0bf0654ead14b4135505bb6
+guid: 49df8466df42e5b4088c0d7b98087f26
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7221837281361714213
-    second: Water-Splash_0
-  - first:
-      213: -556362260711734262
-    second: Water-Splash_1
-  - first:
-      213: 5110612958232527010
-    second: Water-Splash_2
-  - first:
-      213: 7126433260327580831
-    second: Water-Splash_3
-  - first:
-      213: -5490762230564673075
-    second: Water-Splash_4
-  - first:
-      213: 2733977027377358111
-    second: Water-Splash_5
-  - first:
-      213: 4061028114970135407
-    second: Water-Splash_6
-  - first:
-      213: -7831466694773212223
-    second: Water-Splash_7
-  - first:
-      213: -1214175618275619342
-    second: Water-Splash_8
-  - first:
-      213: -7758643244334935198
-    second: Water-Splash_9
+      213: -8063548676009368659
+    second: sofa_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -73,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -153,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Water-Splash_3
+      name: sofa_1_0
       rect:
         serializedVersion: 2
-        x: 165
-        y: 175
-        width: 170
-        height: 169
+        x: 0
+        y: 0
+        width: 427
+        height: 274
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f94ba55fa4d26e260800000000000000
-      internalID: 7126433260327580831
+      spriteID: da3e361a335881090800000000000000
+      internalID: -8063548676009368659
       vertices: []
       indices: 
       edges: []
@@ -178,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6520f153737d9a24e892173d363ea9f5
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -188,16 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Water-Splash_0: -7221837281361714213
-      Water-Splash_1: -556362260711734262
-      Water-Splash_2: 5110612958232527010
-      Water-Splash_3: 7126433260327580831
-      Water-Splash_4: -5490762230564673075
-      Water-Splash_5: 2733977027377358111
-      Water-Splash_6: 4061028114970135407
-      Water-Splash_7: -7831466694773212223
-      Water-Splash_8: -1214175618275619342
-      Water-Splash_9: -7758643244334935198
+      sofa_1_0: -8063548676009368659
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

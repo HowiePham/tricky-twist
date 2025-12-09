@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 167d98dd5ee8b0e449557a01c5ba2b7b
+guid: de42b257fa3fd8e4a8c19846b0e91efc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5883154929411060823
-    second: Puppy1_0
+      213: -9008593286579776772
+    second: sofa_2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Puppy1_0
+      name: sofa_2_0
       rect:
         serializedVersion: 2
-        x: 201
-        y: 185
-        width: 85
-        height: 100
+        x: 0
+        y: 0
+        width: 551
+        height: 271
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 754722eec3a25a150800000000000000
-      internalID: 5883154929411060823
+      spriteID: cf2917ba22c0bf280800000000000000
+      internalID: -9008593286579776772
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Puppy1_0: 5883154929411060823
+      sofa_2_0: -9008593286579776772
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
