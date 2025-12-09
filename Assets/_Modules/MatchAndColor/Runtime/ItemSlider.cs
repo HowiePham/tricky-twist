@@ -1,33 +1,35 @@
 using System.Collections.Generic;
 using Lean.Touch;
-using Mimi.Interactions.Dragging;
 using UnityEngine;
 
 public class ItemSlider : MonoBehaviour
 {
-    [Header("Slider Settings")] [SerializeField]
-    private float itemSpacing = 2f;
-
+    [Header("Slider Settings")] 
+    [SerializeField] private float itemSpacing = 2f;
     [SerializeField] private float slideSpeed = 5f;
     [SerializeField] private float snapSpeed = 10f;
     [SerializeField] private bool enableSnapping = true;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-    [Header("Item Settings")] [SerializeField]
-    private Transform itemContainer;
-
+    [Header("Item Settings")] 
+    [SerializeField] private Transform itemContainer;
     [SerializeField] private List<GameObject> spawnedItems = new List<GameObject>();
+    
     private Vector3 dragStartPosition;
     private float currentOffset = 0f;
     private float targetOffset = 0f;
     [SerializeField] private bool isDragging = false;
     private int centerItemIndex = 0;
+    
+    // Tracking để phân biệt drag slider vs drag item
+    private LeanFinger currentFinger;
+    private bool isItemBeingDragged = false;
 
     void Start()
     {
-        if (itemContainer == null)
+        if (this.itemContainer == null)
         {
-            itemContainer = transform;
+            this.itemContainer = this.transform;
         }
 
         UpdateItemPositions();
@@ -35,9 +37,9 @@ public class ItemSlider : MonoBehaviour
 
     void Update()
     {
-        if (!isDragging && enableSnapping)
+        if (!isDragging && this.enableSnapping)
         {
-            currentOffset = Mathf.Lerp(currentOffset, targetOffset, Time.deltaTime * snapSpeed);
+            this.currentOffset = Mathf.Lerp(this.currentOffset, this.targetOffset, Time.deltaTime * this.snapSpeed);
         }
 
         UpdateItemPositions();
@@ -63,28 +65,47 @@ public class ItemSlider : MonoBehaviour
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
         worldPos.z = 0f;
 
-        // Check if touch is on slider area
+        // Kiểm tra xem có chạm vào item nào không
+        GameObject touchedItem = GetTouchedItem(worldPos);
+        
+        if (touchedItem != null)
+        {
+            // Touch vào item -> để script khác (DraggableItem) xử lý
+            isItemBeingDragged = true;
+            currentFinger = finger;
+            return;
+        }
+
+        // Touch vào vùng trống của slider -> scroll slider
         if (IsInSliderArea(worldPos))
         {
             isDragging = true;
+            isItemBeingDragged = false;
             dragStartPosition = worldPos;
+            currentFinger = finger;
         }
     }
 
     private void OnFingerUpdate(LeanFinger finger)
     {
+        // Nếu đang drag item, không scroll slider
+        if (isItemBeingDragged) return;
+        
+        // Chỉ xử lý finger đang được track
+        if (finger != currentFinger) return;
+        
         if (!isDragging) return;
 
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
         worldPos.z = 0f;
 
         float delta = worldPos.x - dragStartPosition.x;
-        currentOffset += delta * slideSpeed;
+        this.currentOffset += delta * slideSpeed;
 
-        if (spawnedItems.Count > 0)
+        if (this.spawnedItems.Count > 0)
         {
-            float maxOffset = (spawnedItems.Count - 1) * itemSpacing;
-            currentOffset = Mathf.Clamp(currentOffset, -maxOffset, 0f);
+            float maxOffset = (this.spawnedItems.Count - 1) * itemSpacing;
+            this.currentOffset = Mathf.Clamp(this.currentOffset, -maxOffset, 0f);
         }
 
         dragStartPosition = worldPos;
@@ -92,45 +113,64 @@ public class ItemSlider : MonoBehaviour
 
     private void OnFingerUp(LeanFinger finger)
     {
-        if (!isDragging) return;
-
-        isDragging = false;
-
-        if (enableSnapping)
+        // Chỉ xử lý finger đang được track
+        if (finger != currentFinger) return;
+        
+        if (isDragging)
         {
-            SnapToNearestItem();
+            isDragging = false;
+
+            if (this.enableSnapping)
+            {
+                SnapToNearestItem();
+            }
         }
+        
+        isItemBeingDragged = false;
+        currentFinger = null;
+    }
+
+    private GameObject GetTouchedItem(Vector3 worldPos)
+    {
+        // Kiểm tra xem có item nào được touch không
+        foreach (GameObject item in spawnedItems)
+        {
+            if (item == null) continue;
+            
+            Collider2D collider = item.GetComponent<Collider2D>();
+            if (collider != null && collider.OverlapPoint(worldPos))
+            {
+                return item;
+            }
+        }
+        return null;
     }
 
     private void UpdateItemPositions()
     {
-        for (int i = 0; i < spawnedItems.Count; i++)
+        for (int i = 0; i < this.spawnedItems.Count; i++)
         {
-            if (spawnedItems[i] == null) continue;
+            if (this.spawnedItems[i] == null) continue;
 
-            float targetX = i * itemSpacing + currentOffset;
-            Vector3 pos = spawnedItems[i].transform.localPosition;
+            float targetX = i * itemSpacing + this.currentOffset;
+            Vector3 pos = this.spawnedItems[i].transform.localPosition;
             pos.x = targetX;
-            spawnedItems[i].transform.localPosition = pos;
-
-            // float distanceFromCenter = Mathf.Abs(targetX);
-            // float scale = Mathf.Lerp(1f, 0.7f, distanceFromCenter / (itemSpacing * 2));
-            // spawnedItems[i].transform.localScale = Vector3.one * scale;
+            this.spawnedItems[i].transform.localPosition = pos;
         }
     }
 
     private void UpdateItemSelection()
     {
-        if (spawnedItems.Count == 0) return;
+        if (this.spawnedItems.Count == 0) return;
 
         float closestDist = float.MaxValue;
         int closestIndex = 0;
 
-        for (int i = 0; i < spawnedItems.Count; i++)
+        for (int i = 0; i < this.spawnedItems.Count; i++)
         {
-            if (spawnedItems[i] == null) continue;
+            if (this.spawnedItems[i] == null) continue;
 
-            float dist = Mathf.Abs(spawnedItems[i].transform.localPosition.x);
+            float dist = Mathf.Abs(this.spawnedItems[i].transform.localPosition.x);
             if (dist < closestDist)
             {
                 closestDist = dist;
@@ -143,10 +183,10 @@ public class ItemSlider : MonoBehaviour
 
     private void SnapToNearestItem()
     {
-        if (spawnedItems.Count == 0) return;
+        if (this.spawnedItems.Count == 0) return;
 
-        targetOffset = -centerItemIndex * itemSpacing;
-        targetOffset = Mathf.Clamp(targetOffset, -(spawnedItems.Count - 1) * itemSpacing, 0f);
+        this.targetOffset = -centerItemIndex * itemSpacing;
+        this.targetOffset = Mathf.Clamp(this.targetOffset, -(this.spawnedItems.Count - 1) * itemSpacing, 0f);
     }
 
     private bool IsInSliderArea(Vector3 worldPos)
@@ -155,6 +195,25 @@ public class ItemSlider : MonoBehaviour
         return spriteRenderer.bounds.Contains(worldPos);
     }
 
+    // Public method để check xem slider có đang được drag không
+    public bool IsSliderDragging()
+    {
+        return isDragging;
+    }
+
+    // Public method để item có thể báo là nó đang được drag
+    public void NotifyItemDragStart(LeanFinger finger)
+    {
+        isItemBeingDragged = true;
+        isDragging = false;
+        currentFinger = finger;
+    }
+
+    public void NotifyItemDragEnd()
+    {
+        isItemBeingDragged = false;
+        currentFinger = null;
+    }
 
     void OnDrawGizmos()
     {
