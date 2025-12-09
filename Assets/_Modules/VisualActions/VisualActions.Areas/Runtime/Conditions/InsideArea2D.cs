@@ -11,7 +11,6 @@ namespace Mimi.VisualActions.Dragging
 
         public override bool Validate()
         {
-            
             if (!this.targetArea.Active) return false;
             Vector3 checkPos = this.checkTransform.position;
             //Debug.Log("hello "+this.targetArea.ContainsWorldSpace(checkPos));

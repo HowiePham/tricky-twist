@@ -1,6 +1,5 @@
 using Lean.Touch;
-using Mimi.Interactions.Dragging;
-using Mimi.Interactions.Dragging.Extensions;
+using Mimi.VisualActions;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +11,8 @@ public class SliderItemSelector : MonoBehaviour
     [Header("Settings")] [SerializeField] private float dragThreshold = 0.1f;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private LeanSelectableByFinger draggableItem;
+    [SerializeField] private LeanSelectByFinger leanSelectByFinger;
+    [SerializeField] private VisualCondition visualCondition;
     private ItemSlider parentSlider;
     private LeanFinger currentFinger;
     private Vector3 fingerDownPosition;
@@ -20,6 +21,7 @@ public class SliderItemSelector : MonoBehaviour
     void Start()
     {
         this.parentSlider = GetComponentInParent<ItemSlider>();
+        this.leanSelectByFinger = FindAnyObjectByType<LeanSelectByFinger>();
     }
 
     void OnEnable()
@@ -73,22 +75,41 @@ public class SliderItemSelector : MonoBehaviour
                 // Trigger Unity Event - script khác sẽ xử lý drag
                 this.OnItemReadyToDrag?.Invoke();
                 this.draggableItem.SelectSelf(finger);
+                this.leanSelectByFinger.Select(this.draggableItem);
             }
         }
     }
 
     private void OnFingerUp(LeanFinger finger)
     {
-        if (finger != this.currentFinger) return;
-
-        if (this.hasDraggedEnough)
+        if (finger != this.currentFinger)
         {
-            if (this.parentSlider != null)
-            {
-                this.parentSlider.NotifyItemDragEnd();
-                this.OnItemEndDragging?.Invoke();
-            }
+            return;
         }
+
+        if (!this.hasDraggedEnough)
+        {
+            this.currentFinger = null;
+            this.hasDraggedEnough = false;
+            return;
+        }
+
+        if (this.parentSlider == null)
+        {
+            this.currentFinger = null;
+            this.hasDraggedEnough = false;
+            return;
+        }
+
+        this.parentSlider.NotifyItemDragEnd();
+        this.draggableItem.Deselect();
+        this.leanSelectByFinger.Deselect(this.draggableItem);
+
+        if (!this.visualCondition.Validate())
+        {
+            this.OnItemEndDragging?.Invoke();
+        }
+
 
         this.currentFinger = null;
         this.hasDraggedEnough = false;
