@@ -51,7 +51,7 @@ public class JigsawInputHandler : MonoBehaviour
     private void SelectCard(LeanFinger finger, Card selectedCard)
     {
         this.selectedCard = selectedCard;
-        this.selectedCard.Select();
+        this.selectedCard.PrioritizeOrderLayer();
         Vector3 fingerPos = finger.GetWorldPosition(10);
         this.fingerOffset = this.selectedCard.transform.position - fingerPos;
     }
@@ -63,7 +63,7 @@ public class JigsawInputHandler : MonoBehaviour
 
     private void DeselectCard()
     {
-        this.selectedCard.Deselect();
+        this.selectedCard.ResetOrderLayer();
         this.selectedCard = null;
     }
 

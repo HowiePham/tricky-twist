@@ -22,12 +22,12 @@ public class Card : MonoBehaviour
         this.cardVisual.SetSpriteVisual(cardSprite);
     }
 
-    public void Select()
+    public void PrioritizeOrderLayer()
     {
         this.cardVisual.PrioritizeOrderLayer();
     }
 
-    public void Deselect()
+    public void ResetOrderLayer()
     {
         this.cardVisual.ResetOrderLayer();
     }
@@ -35,8 +35,9 @@ public class Card : MonoBehaviour
     public async UniTask MoveTo(MatrixPos newMatrixPos, Vector2 newPos)
     {
         this.currentMatrixPos = newMatrixPos;
+        PrioritizeOrderLayer();
         await this.cardInteracting.MoveTo(newPos);
-
+        ResetOrderLayer();
         this.isCompleted = this.correctMatrixPos.Equals(newMatrixPos);
     }
 
