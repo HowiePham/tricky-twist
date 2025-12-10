@@ -4804,7 +4804,7 @@ MonoBehaviour:
   itemSpacing: 5
   slideSpeed: 2
   snapSpeed: 10
-  enableSnapping: 0
+  enableSnapping: 1
   spriteRenderer: {fileID: 4835378724257967413}
   itemContainer: {fileID: 3923066584486496373}
   sliderItemSelectors:

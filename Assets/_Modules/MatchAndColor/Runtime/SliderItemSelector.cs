@@ -109,6 +109,11 @@ public class SliderItemSelector : MonoBehaviour
         {
             this.OnItemEndDragging?.Invoke();
         }
+        else
+        {
+            this.parentSlider.RemoveItemFromList(this);
+            this.gameObject.SetActive(false);
+        }
 
 
         this.currentFinger = null;

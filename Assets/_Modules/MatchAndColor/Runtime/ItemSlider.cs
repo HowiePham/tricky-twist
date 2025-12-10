@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using Lean.Touch;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ItemSlider : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class ItemSlider : MonoBehaviour
     [Header("Item Settings")] [SerializeField]
     private Transform itemContainer;
 
-    [SerializeField] private SliderItemSelector[] sliderItemSelectors;
+    [SerializeField] private List<SliderItemSelector> sliderItemSelectors;
 
     private Vector3 dragStartPosition;
     private float currentOffset = 0f;
@@ -100,9 +100,9 @@ public class ItemSlider : MonoBehaviour
         float delta = worldPos.x - dragStartPosition.x;
         this.currentOffset += delta * slideSpeed;
 
-        if (this.sliderItemSelectors.Length > 0)
+        if (this.sliderItemSelectors.Count > 0)
         {
-            float maxOffset = (this.sliderItemSelectors.Length - 1) * itemSpacing;
+            float maxOffset = (this.sliderItemSelectors.Count - 1) * itemSpacing;
             this.currentOffset = Mathf.Clamp(this.currentOffset, -maxOffset, 0f);
         }
 
@@ -145,7 +145,7 @@ public class ItemSlider : MonoBehaviour
 
     private void UpdateItemPositions()
     {
-        for (int i = 0; i < this.sliderItemSelectors.Length; i++)
+        for (int i = 0; i < this.sliderItemSelectors.Count; i++)
         {
             if (this.sliderItemSelectors[i] == null) continue;
 
@@ -153,17 +153,21 @@ public class ItemSlider : MonoBehaviour
             Vector3 pos = this.sliderItemSelectors[i].transform.localPosition;
             pos.x = targetX;
             this.sliderItemSelectors[i].transform.localPosition = pos;
+
+            float distanceFromCenter = Mathf.Abs(targetX);
+            float scale = Mathf.Lerp(1f, 0.7f, distanceFromCenter / (itemSpacing * 2));
+            this.sliderItemSelectors[i].transform.localScale = Vector3.one * scale;
         }
     }
 
     private void UpdateItemSelection()
     {
-        if (this.sliderItemSelectors.Length == 0) return;
+        if (this.sliderItemSelectors.Count == 0) return;
 
         float closestDist = float.MaxValue;
         int closestIndex = 0;
 
-        for (int i = 0; i < this.sliderItemSelectors.Length; i++)
+        for (int i = 0; i < this.sliderItemSelectors.Count; i++)
         {
             if (this.sliderItemSelectors[i] == null) continue;
 
@@ -180,10 +184,10 @@ public class ItemSlider : MonoBehaviour
 
     private void SnapToNearestItem()
     {
-        if (this.sliderItemSelectors.Length == 0) return;
+        if (this.sliderItemSelectors.Count == 0) return;
 
         this.targetOffset = -centerItemIndex * itemSpacing;
-        this.targetOffset = Mathf.Clamp(this.targetOffset, -(this.sliderItemSelectors.Length - 1) * itemSpacing, 0f);
+        this.targetOffset = Mathf.Clamp(this.targetOffset, -(this.sliderItemSelectors.Count - 1) * itemSpacing, 0f);
     }
 
     private bool IsInSliderArea(Vector3 worldPos)
@@ -210,11 +214,16 @@ public class ItemSlider : MonoBehaviour
         currentFinger = null;
     }
 
+    public void RemoveItemFromList(SliderItemSelector sliderItemSelector)
+    {
+        this.sliderItemSelectors.Remove(sliderItemSelector);
+    }
+
 #if UNITY_EDITOR
     [Button]
     private void GetAllItemSlider()
     {
-        this.sliderItemSelectors = GetComponentsInChildren<SliderItemSelector>();
+        this.sliderItemSelectors = GetComponentsInChildren<SliderItemSelector>().ToList();
     }
 #endif
 }
