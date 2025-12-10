@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3904108742031749250}
-  defaultOrderLayer: 0
+  defaultOrderLayer: 5
+  priorityOrderLayer: 20
 --- !u!212 &3904108742031749250
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -112,6 +113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5555930926042189070}
   - component: {fileID: 582585640794969336}
+  - component: {fileID: -4118207457347174094}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -148,9 +150,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardVisual: {fileID: 3252319596055865884}
+  cardInteracting: {fileID: -4118207457347174094}
   currentMatrixPos:
     Row: 0
     Column: 0
   correctMatrixPos:
     Row: 0
     Column: 0
+--- !u!114 &-4118207457347174094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7881229427783816068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226b9f2d214ec0247aa2e88af0cb4943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingDuration: 0.5

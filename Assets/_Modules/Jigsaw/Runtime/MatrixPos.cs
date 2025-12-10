@@ -11,4 +11,9 @@ public struct MatrixPos
         this.Row = row;
         this.Column = column;
     }
+
+    public bool Equals(MatrixPos matrixPos)
+    {
+        return this.Row == matrixPos.Row && this.Column == matrixPos.Column;
+    }
 }

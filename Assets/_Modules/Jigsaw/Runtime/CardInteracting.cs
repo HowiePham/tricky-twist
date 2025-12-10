@@ -1,68 +1,16 @@
-using Lean.Touch;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 public class CardInteracting : MonoBehaviour
 {
-    [SerializeField] private Card card;
-    [SerializeField] private bool isSelected;
-    private Vector3 fingerOffset;
-    public bool IsSelected => this.isSelected;
+    [SerializeField] private float movingDuration = 0.5f;
+    private Tween movingTween;
 
-    private void OnEnable()
+    public async UniTask MoveTo(Vector2 position)
     {
-        LeanTouch.OnFingerDown += FingerDownHandler;
-        LeanTouch.OnFingerUp += FingerUpHandler;
-        LeanTouch.OnFingerUpdate += FingerUpdateHandler;
+        this.movingTween.Kill();
+        this.movingTween = this.transform.DOMove(position, this.movingDuration);
+        await this.movingTween.AsyncWaitForCompletion();
     }
-
-    private void FingerUpdateHandler(LeanFinger finger)
-    {
-        if (!IsSelected)
-        {
-            return;
-        }
-
-        Vector3 fingerPos = finger.GetWorldPosition(10);
-        this.card.transform.position = this.fingerOffset + fingerPos;
-    }
-
-    private void FingerDownHandler(LeanFinger finger)
-    {
-        if (!CanSelectCard(finger))
-        {
-            return;
-        }
-
-        this.isSelected = true;
-
-        Vector3 fingerPos = finger.GetWorldPosition(10);
-        this.fingerOffset = this.card.transform.position - fingerPos;
-    }
-
-    private void FingerUpHandler(LeanFinger finger)
-    {
-        this.isSelected = false;
-    }
-
-    private bool CanSelectCard(LeanFinger finger)
-    {
-        Vector3 fingerPos = finger.GetWorldPosition(10);
-
-        return this.card.GetBounds().Contains(fingerPos);
-    }
-
-    private void OnDisable()
-    {
-        LeanTouch.OnFingerDown -= FingerDownHandler;
-        LeanTouch.OnFingerUp -= FingerUpHandler;
-        LeanTouch.OnFingerUpdate -= FingerUpdateHandler;
-    }
-
-#if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(this.card.transform.position, this.card.GetBounds().size);
-    }
-#endif
 }

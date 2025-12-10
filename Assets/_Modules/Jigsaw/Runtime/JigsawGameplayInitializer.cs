@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class ImageMatrixHandler : MonoBehaviour
+public class JigsawGameplayInitializer : MonoBehaviour
 {
+    [SerializeField] private JigsawGameflowHandler gameflowHandler;
+    [SerializeField] private JigsawInputHandler inputHandler;
     [SerializeField] private Texture2D sourceTexture;
     [SerializeField] private Card cardPrefab;
     [SerializeField] private float pixelsPerUnit = 100f;
@@ -18,6 +20,8 @@ public class ImageMatrixHandler : MonoBehaviour
 
         this.cardMatrix = new Card[this.totalRow, this.totalCol];
 
+        var positions = new Vector2[this.totalRow, this.totalCol];
+
         for (var row = 0; row < this.totalRow; row++)
         {
             for (var col = 0; col < this.totalCol; col++)
@@ -30,31 +34,42 @@ public class ImageMatrixHandler : MonoBehaviour
                 GameObject cardGameObject = card.gameObject;
                 cardGameObject.name = $"Piece_{col}_{row}";
 
-                MatrixPos emptyCardMatrixPos = GetEmptyCardMatrixPos();
+                MatrixPos emptyCardMatrixPos = GetEmptyCardMatrixPos(row, col);
                 var correctMatrixPos = new MatrixPos(row, col);
 
+                int currentCardRow = emptyCardMatrixPos.Row;
+                int currentCardColumn = emptyCardMatrixPos.Column;
+                float cardPosX = (currentCardColumn - 1) * (w / this.pixelsPerUnit) + this.columnGap * currentCardColumn;
+                float cardPosY = (currentCardRow - 1) * (h / this.pixelsPerUnit) + this.rowGap * currentCardRow;
                 cardGameObject.transform.position = new Vector3(
-                    (emptyCardMatrixPos.Column - 1) * (w / this.pixelsPerUnit) + this.columnGap * emptyCardMatrixPos.Column,
-                    (emptyCardMatrixPos.Row - 1) * (h / this.pixelsPerUnit) + this.rowGap * emptyCardMatrixPos.Row,
+                    cardPosX,
+                    cardPosY,
                     0);
 
                 card.InitCard(correctMatrixPos, emptyCardMatrixPos, sprite);
 
-                this.cardMatrix[emptyCardMatrixPos.Row, emptyCardMatrixPos.Column] = card;
+                this.cardMatrix[currentCardRow, currentCardColumn] = card;
+                positions[currentCardRow, currentCardColumn] = new Vector2(cardPosX, cardPosY);
             }
         }
+
+        this.inputHandler.Init(this.cardMatrix, positions);
+        this.gameflowHandler.Init(this.inputHandler, this.cardMatrix);
     }
 
-    private MatrixPos GetEmptyCardMatrixPos()
+    private MatrixPos GetEmptyCardMatrixPos(int currentRow, int currentCol)
     {
         int row = Random.Range(0, this.totalRow);
         int col = Random.Range(0, this.totalCol);
         Card emptyCard = this.cardMatrix[row, col];
-        while (emptyCard != null)
+        bool isSamePos = row == currentRow && col == currentCol;
+
+        while (emptyCard != null || isSamePos)
         {
             row = Random.Range(0, this.totalRow);
             col = Random.Range(0, this.totalCol);
             emptyCard = this.cardMatrix[row, col];
+            isSamePos = row == currentRow && col == currentCol;
         }
 
         return new MatrixPos(row, col);

@@ -4,6 +4,7 @@ public class CardVisual : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private int defaultOrderLayer;
+    [SerializeField] private int priorityOrderLayer;
 
     private void Start()
     {
@@ -15,7 +16,12 @@ public class CardVisual : MonoBehaviour
         this.spriteRenderer.sprite = sprite;
     }
 
-    public void SetOrderLayer(int orderLayer)
+    public void PrioritizeOrderLayer()
+    {
+        this.spriteRenderer.sortingOrder = this.priorityOrderLayer;
+    }
+
+    public void ResetOrderLayer()
     {
         this.spriteRenderer.sortingOrder = this.defaultOrderLayer;
     }
