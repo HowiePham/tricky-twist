@@ -93,9 +93,13 @@ public class JigsawInputHandler : MonoBehaviour
         int targetRow = targetMatrixPos.Row;
         int targetCol = targetMatrixPos.Column;
 
-        targetCard.MoveTo(selectedCardCurrentMatrixPos, this.positions[currentRow, currentCol]);
-        await selectedCard.MoveTo(targetMatrixPos, this.positions[targetRow, targetCol]);
+        UniTask task1 = targetCard.MoveTo(selectedCardCurrentMatrixPos, this.positions[currentRow, currentCol]);
+        UniTask task2 = selectedCard.MoveTo(targetMatrixPos, this.positions[targetRow, targetCol]);
+        this.cardMatrix[currentRow, currentCol] = targetCard;
+        this.cardMatrix[targetRow, targetCol] = selectedCard;
+        await UniTask.WhenAll(task1, task2);
 
+        CheckCardCanConnect(selectedCard);
         OnCardSwapped?.Invoke();
     }
 
@@ -118,10 +122,60 @@ public class JigsawInputHandler : MonoBehaviour
         return null;
     }
 
+
     private void OnDisable()
     {
         LeanTouch.OnFingerDown -= FingerDownHandler;
         LeanTouch.OnFingerUp -= FingerUpHandler;
         LeanTouch.OnFingerUpdate -= FingerUpdateHandler;
+    }
+
+    private void CheckCardCanConnect(Card card)
+    {
+        MatrixPos currentPosA = card.CurrentMatrixPos;
+
+        Debug.Log($"=== Checking Card {card.gameObject.name} at current position ({currentPosA.Row}, {currentPosA.Column})");
+
+        int currentRow = currentPosA.Row;
+        int currentCol = currentPosA.Column;
+
+        CheckNeighborConnection(card, currentRow - 1, currentCol, Direction.Down);
+        CheckNeighborConnection(card, currentRow + 1, currentCol, Direction.Up);
+        CheckNeighborConnection(card, currentRow, currentCol - 1, Direction.Left);
+        CheckNeighborConnection(card, currentRow, currentCol + 1, Direction.Right);
+    }
+
+    private void CheckNeighborConnection(Card currentCard, int neighborRow, int neighborCol, Direction dirToTarget)
+    {
+        int maxRow = this.cardMatrix.GetLength(0);
+        int maxCol = this.cardMatrix.GetLength(1);
+
+        if (neighborRow < 0 || neighborRow >= maxRow ||
+            neighborCol < 0 || neighborCol >= maxCol)
+        {
+            Debug.Log($"  [{dirToTarget}] Out of bounds");
+            return;
+        }
+
+        Card neighborCard = this.cardMatrix[neighborRow, neighborCol];
+        if (neighborCard == null)
+        {
+            Debug.Log($"  [{dirToTarget}] No card");
+            return;
+        }
+
+        MatrixPos currentCardCorrectPos = currentCard.CorrectMatrixPos;
+        MatrixPos correctPosNeighbor = neighborCard.CorrectMatrixPos;
+
+        bool canConnect = currentCardCorrectPos.IsNeighborPos(correctPosNeighbor, maxRow, maxCol, out Direction neighborDirection);
+
+        if (canConnect && neighborDirection == dirToTarget)
+        {
+            Debug.Log($"  [{dirToTarget}] ✓ CAN CONNECT! Neighbor correct pos: ({correctPosNeighbor.Row}, {correctPosNeighbor.Column}) --- {neighborCard.gameObject.name} --- {neighborDirection}");
+        }
+        else
+        {
+            Debug.Log($"  [{dirToTarget}] ✗ Cannot connect. Neighbor correct pos: ({correctPosNeighbor.Row}, {correctPosNeighbor.Column}) --- {neighborCard.gameObject.name} --- {neighborDirection}");
+        }
     }
 }
