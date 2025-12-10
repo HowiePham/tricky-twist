@@ -46,6 +46,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d004b56f5b650f449d32e9937ef325d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnJigsawGameWin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &9084537135653211096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,8 +80,8 @@ MonoBehaviour:
   pixelsPerUnit: 100
   totalRow: 3
   totalCol: 3
-  rowGap: 0.1
-  columnGap: 0.1
+  rowGap: 0
+  columnGap: 0
 --- !u!114 &1798031989491542798
 MonoBehaviour:
   m_ObjectHideFlags: 0

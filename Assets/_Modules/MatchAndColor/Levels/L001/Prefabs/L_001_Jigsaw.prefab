@@ -1837,7 +1837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bae249d7db294305881a00a87d54ccd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTime: 0.1
+  smoothTime: 0
   speedScalar: 2
   positionProcessor: {fileID: 813816276053495594}
   draggableExtension: {fileID: 7290279371918688850}
@@ -2588,50 +2588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: JigsawController
       objectReference: {fileID: 0}
-    - target: {fileID: 4963179379170517479, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
       propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3039073795559788164}
-    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 9084537135653211096, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: rowGap
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9084537135653211096, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: columnGap
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9170795026068420259, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
