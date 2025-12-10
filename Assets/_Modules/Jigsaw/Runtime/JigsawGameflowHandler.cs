@@ -12,7 +12,7 @@ public class JigsawGameflowHandler : MonoBehaviour
         this.cardMatrix = cardMatrix;
         this.jigsawInputHandler = jigsawInputHandler;
 
-        this.jigsawInputHandler.OnCardSwapped += CheckCardMatrix;
+        this.jigsawInputHandler.OnCardSwapped.AddListener(CheckCardMatrix);
     }
 
     private void CheckCardMatrix()
@@ -33,6 +33,6 @@ public class JigsawGameflowHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        this.jigsawInputHandler.OnCardSwapped -= CheckCardMatrix;
+        this.jigsawInputHandler.OnCardSwapped.RemoveListener(CheckCardMatrix);
     }
 }

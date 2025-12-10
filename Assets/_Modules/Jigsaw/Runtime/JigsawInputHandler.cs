@@ -1,17 +1,25 @@
 using System;
 using Cysharp.Threading.Tasks;
 using Lean.Touch;
+using Mimi.Audio;
+using Mimi.Services.ScriptableObject.Audio;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class JigsawInputHandler : MonoBehaviour
 {
     [SerializeField] private Card selectedCard;
+    public UnityEvent OnCardSwapped;
+
+    [Header("Sound")] [SerializeField] private BaseAudioServiceSO audioPlayer;
+    [SerializeField, SoundKey] private string placeSoundKey;
+    [SerializeField, SoundKey] private string pickSoundKey;
+    [SerializeField, Range(0f, 1f)] private float volume = 1f;
+    [SerializeField, Range(0f, 5f)] private float pitch = 1f;
 
     private Card[,] cardMatrix;
     private Vector2[,] positions;
     private Vector3 fingerOffset;
-
-    public Action OnCardSwapped;
 
     private void OnEnable()
     {
@@ -50,6 +58,7 @@ public class JigsawInputHandler : MonoBehaviour
 
     private void SelectCard(LeanFinger finger, Card selectedCard)
     {
+        PlaySound(this.pickSoundKey);
         this.selectedCard = selectedCard;
         this.selectedCard.PrioritizeOrderLayer();
         Vector3 fingerPos = finger.GetWorldPosition(10);
@@ -85,7 +94,8 @@ public class JigsawInputHandler : MonoBehaviour
 
         if (targetCard == null)
         {
-            selectedCard.MoveTo(selectedCardCurrentMatrixPos, this.positions[currentRow, currentCol]);
+            await selectedCard.MoveTo(selectedCardCurrentMatrixPos, this.positions[currentRow, currentCol]);
+            PlaySound(this.placeSoundKey);
             return;
         }
 
@@ -98,6 +108,7 @@ public class JigsawInputHandler : MonoBehaviour
         this.cardMatrix[currentRow, currentCol] = targetCard;
         this.cardMatrix[targetRow, targetCol] = selectedCard;
         await UniTask.WhenAll(task1, task2);
+        PlaySound(this.placeSoundKey);
 
         CheckCardCanConnect(selectedCard);
         OnCardSwapped?.Invoke();
@@ -177,5 +188,10 @@ public class JigsawInputHandler : MonoBehaviour
         {
             Debug.Log($"  [{dirToTarget}] ✗ Cannot connect. Neighbor correct pos: ({correctPosNeighbor.Row}, {correctPosNeighbor.Column}) --- {neighborCard.gameObject.name} --- {neighborDirection}");
         }
+    }
+
+    private void PlaySound(string soundKey)
+    {
+        this.audioPlayer.PlaySound(soundKey, this.volume, this.pitch);
     }
 }

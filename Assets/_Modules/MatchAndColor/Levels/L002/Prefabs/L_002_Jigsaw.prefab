@@ -6145,18 +6145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: JigsawController
       objectReference: {fileID: 0}
-    - target: {fileID: 4963179379170517479, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
       propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3793658232772868356}
-    - target: {fileID: 9084537135653211096, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
-      propertyPath: sourceTexture
-      value: 
-      objectReference: {fileID: 2800000, guid: e7f4f2b5d3d462544ad3f1347bfa917f, type: 3}
     - target: {fileID: 9170795026068420259, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

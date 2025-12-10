@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameflowHandler: {fileID: 5580223290877700756}
   inputHandler: {fileID: 1798031989491542798}
-  sourceTexture: {fileID: 2800000, guid: b45b85195a472f746a9be40b19b9c448, type: 3}
+  sourceTexture: {fileID: 2800000, guid: e7f4f2b5d3d462544ad3f1347bfa917f, type: 3}
   cardPrefab: {fileID: 582585640794969336, guid: ca49cb5ffe2b1fc4994e9bf497f8caef, type: 3}
   pixelsPerUnit: 100
   totalRow: 3
@@ -95,3 +95,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedCard: {fileID: 0}
+  OnCardSwapped:
+    m_PersistentCalls:
+      m_Calls: []
+  audioPlayer: {fileID: 11400000, guid: ca539802b2f42a34d9bbdb0eb278d4e3, type: 2}
+  placeSoundKey: Place0
+  pickSoundKey: Pop1
+  volume: 1
+  pitch: 1
