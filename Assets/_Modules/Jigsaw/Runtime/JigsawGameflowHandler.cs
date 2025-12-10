@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class JigsawGameflowHandler : MonoBehaviour
 {
     private JigsawInputHandler jigsawInputHandler;
     private Card[,] cardMatrix;
+    public UnityEvent OnJigsawGameWin;
 
     public void Init(JigsawInputHandler jigsawInputHandler, Card[,] cardMatrix)
     {
@@ -26,6 +28,7 @@ public class JigsawGameflowHandler : MonoBehaviour
         }
 
         Debug.Log($"--- (JIGSAW) Winnnnnn");
+        OnJigsawGameWin?.Invoke();
     }
 
     private void OnDisable()

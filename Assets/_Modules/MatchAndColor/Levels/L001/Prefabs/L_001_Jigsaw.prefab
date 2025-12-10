@@ -681,6 +681,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2813166627401729337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2656970513434682996}
+  - component: {fileID: 4254059891665097979}
+  m_Layer: 0
+  m_Name: SetActive_Off
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2656970513434682996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813166627401729337}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6810648531644774154}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4254059891665097979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813166627401729337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9e684be3dc42a782496667df140c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  gameObjects:
+  - {fileID: 4257011305037119530}
+  status: 0
 --- !u!1 &2892553324163569327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1262,6 +1315,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4054818585844462658}
+  - {fileID: 2656970513434682996}
   - {fileID: 6189408131564246514}
   - {fileID: 5238222297036389005}
   m_Father: {fileID: 2488226844050097802}
@@ -2537,6 +2591,38 @@ PrefabInstance:
     - target: {fileID: 4963179379170517479, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
+      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
+      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
+      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3039073795559788164}
+    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
+      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
+      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
+      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
+      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5580223290877700756, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
+      propertyPath: OnJigsawGameWin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9084537135653211096, guid: 8119a25ae358b534098128d4300fcdfb, type: 3}
       propertyPath: rowGap
