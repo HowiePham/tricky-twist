@@ -14,6 +14,12 @@ public class ItemSlider : MonoBehaviour
     [SerializeField] private bool enableSnapping = true;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    [Header("Interaction Settings")] [Tooltip("Khoảng cách tối thiểu để xác định hướng kéo")] [SerializeField]
+    private float directionDetectionThreshold = 0.1f;
+
+    [Tooltip("Góc tối thiểu để coi là kéo ngang (độ). 0° = ngang hoàn toàn, 45° = chéo 45°")] [Range(0f, 45f)] [SerializeField]
+    private float horizontalAngleThreshold = 30f;
+
     [Header("Item Settings")] [SerializeField]
     private Transform itemContainer;
 
@@ -30,6 +36,11 @@ public class ItemSlider : MonoBehaviour
 
     // Cache các khoảng cách thực tế của từng item
     private List<float> itemPositions = new List<float>();
+
+    // Tracking cho interaction
+    private Vector3 initialTouchPosition;
+    private SliderItemSelector touchedItem;
+    private bool hasDecidedInteraction = false; // Đã quyết định là slide hay drag item
 
     void Start()
     {
@@ -104,50 +115,101 @@ public class ItemSlider : MonoBehaviour
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
         worldPos.z = 0f;
 
-        GameObject touchedItem = GetTouchedItem(worldPos);
+        // Reset tracking
+        initialTouchPosition = worldPos;
+        hasDecidedInteraction = false;
 
-        if (touchedItem != null)
-        {
-            isItemBeingDragged = true;
-            currentFinger = finger;
-            return;
-        }
+        this.touchedItem = GetTouchedItem(worldPos);
 
         if (IsInSliderArea(worldPos))
         {
-            isDragging = true;
-            isItemBeingDragged = false;
-            dragStartPosition = worldPos;
             currentFinger = finger;
+            dragStartPosition = worldPos;
         }
     }
 
     private void OnFingerUpdate(LeanFinger finger)
     {
-        if (isItemBeingDragged) return;
-
         if (finger != currentFinger) return;
 
-        if (!isDragging) return;
+        // Nếu item đã được xác nhận đang drag, không làm gì
+        if (isItemBeingDragged && hasDecidedInteraction) return;
 
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
         worldPos.z = 0f;
 
-        float delta = worldPos.x - dragStartPosition.x;
-        this.currentOffset += delta * slideSpeed;
+        Vector3 dragDelta = worldPos - initialTouchPosition;
+        float dragDistance = dragDelta.magnitude;
 
-        if (itemPositions.Count > 0)
+        // Chưa quyết định là slide hay drag item
+        if (!hasDecidedInteraction)
         {
-            float maxOffset = itemPositions[itemPositions.Count - 1];
-            this.currentOffset = Mathf.Clamp(this.currentOffset, -maxOffset, 0f);
+            // Chỉ quyết định khi đã di chuyển đủ xa
+            if (dragDistance > directionDetectionThreshold)
+            {
+                // Tính góc kéo (so với trục X - ngang)
+                float angle = Mathf.Abs(Mathf.Atan2(Mathf.Abs(dragDelta.y), Mathf.Abs(dragDelta.x)) * Mathf.Rad2Deg);
+
+                // Góc < threshold -> Kéo NGANG -> SLIDE
+                if (angle < horizontalAngleThreshold)
+                {
+                    hasDecidedInteraction = true;
+                    isDragging = true;
+                    isItemBeingDragged = false;
+                    touchedItem = null; // Hủy khả năng drag item
+
+                    Debug.Log($"Decided: SLIDE (angle: {angle}°)");
+                }
+                // Góc >= threshold -> Kéo DỌC -> DRAG ITEM
+                else if (touchedItem != null)
+                {
+                    hasDecidedInteraction = true;
+                    isItemBeingDragged = true;
+                    isDragging = false;
+                    this.touchedItem.StartDragging(finger);
+
+                    Debug.Log($"Decided: DRAG ITEM (angle: {angle}°)");
+                    return;
+                }
+                else
+                {
+                    // Kéo dọc nhưng không có item -> không làm gì
+                    hasDecidedInteraction = true;
+                    return;
+                }
+            }
+            else
+            {
+                // Chưa đủ điều kiện để quyết định, chờ thêm
+                return;
+            }
         }
 
-        dragStartPosition = worldPos;
+        // Đã quyết định là SLIDE -> thực hiện slide
+        if (isDragging)
+        {
+            float delta = worldPos.x - dragStartPosition.x;
+            this.currentOffset += delta * slideSpeed;
+
+            if (itemPositions.Count > 0)
+            {
+                float maxOffset = itemPositions[itemPositions.Count - 1];
+                this.currentOffset = Mathf.Clamp(this.currentOffset, -maxOffset, 0f);
+            }
+
+            dragStartPosition = worldPos;
+        }
     }
 
     private void OnFingerUp(LeanFinger finger)
     {
         if (finger != currentFinger) return;
+
+        // Nếu chưa quyết định gì (tap nhanh) -> snap đến item gần nhất
+        if (!hasDecidedInteraction && touchedItem != null)
+        {
+            SnapToItem(touchedItem);
+        }
 
         if (isDragging)
         {
@@ -159,20 +221,22 @@ public class ItemSlider : MonoBehaviour
             }
         }
 
+        // Reset
         isItemBeingDragged = false;
         currentFinger = null;
+        touchedItem = null;
+        hasDecidedInteraction = false;
     }
 
-    private GameObject GetTouchedItem(Vector3 worldPos)
+    private SliderItemSelector GetTouchedItem(Vector3 worldPos)
     {
         foreach (var item in this.sliderItemSelectors)
         {
             if (item == null) continue;
 
-            var collider = item.GetComponent<Collider2D>();
-            if (collider != null && collider.OverlapPoint(worldPos))
+            if (item.Bounds.Contains(worldPos))
             {
-                return item.gameObject;
+                return item;
             }
         }
 
@@ -194,10 +258,6 @@ public class ItemSlider : MonoBehaviour
             Vector3 pos = this.sliderItemSelectors[i].transform.localPosition;
             pos.x = targetX;
             this.sliderItemSelectors[i].transform.localPosition = pos;
-
-            // float distanceFromCenter = Mathf.Abs(targetX);
-            // float scale = Mathf.Lerp(1f, 0.7f, distanceFromCenter / (this.itemSpacing * 2));
-            // this.sliderItemSelectors[i].transform.localScale = Vector3.one * scale;
         }
     }
 
@@ -227,12 +287,20 @@ public class ItemSlider : MonoBehaviour
     {
         if (this.sliderItemSelectors.Count == 0 || itemPositions.Count == 0) return;
 
-        // Snap đến vị trí thực tế của item gần nhất
         this.targetOffset = -itemPositions[centerItemIndex];
-
-        // Clamp để không vượt quá giới hạn
         float maxOffset = itemPositions[itemPositions.Count - 1];
         this.targetOffset = Mathf.Clamp(this.targetOffset, -maxOffset, 0f);
+    }
+
+    private void SnapToItem(SliderItemSelector item)
+    {
+        int index = this.sliderItemSelectors.IndexOf(item);
+        if (index >= 0 && index < itemPositions.Count)
+        {
+            this.targetOffset = -itemPositions[index];
+            float maxOffset = itemPositions[itemPositions.Count - 1];
+            this.targetOffset = Mathf.Clamp(this.targetOffset, -maxOffset, 0f);
+        }
     }
 
     private bool IsInSliderArea(Vector3 worldPos)
@@ -244,6 +312,11 @@ public class ItemSlider : MonoBehaviour
     public bool IsSliderDragging()
     {
         return isDragging;
+    }
+
+    public bool HasDecidedToSlide()
+    {
+        return hasDecidedInteraction && isDragging;
     }
 
     public void NotifyItemDragStart(LeanFinger finger)
@@ -262,7 +335,6 @@ public class ItemSlider : MonoBehaviour
     public void RemoveItemFromList(SliderItemSelector sliderItemSelector)
     {
         this.sliderItemSelectors.Remove(sliderItemSelector);
-        // Tính lại positions sau khi remove
         CalculateItemPositions();
     }
 

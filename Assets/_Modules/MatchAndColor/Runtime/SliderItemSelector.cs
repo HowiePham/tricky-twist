@@ -6,18 +6,22 @@ using UnityEngine.Events;
 
 public class SliderItemSelector : MonoBehaviour
 {
-    [Header("Events")] public UnityEvent OnItemReadyToDrag;
+    [Header("Events")] 
+    public UnityEvent OnItemReadyToDrag;
     public UnityEvent OnItemEndDragging;
 
-    [Header("Settings")] [SerializeField] private float dragThreshold = 0.1f;
+    [Header("Settings")] 
+    [SerializeField] private float dragThreshold = 0.1f;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private LeanSelectableByFinger draggableItem;
     [SerializeField] private LeanSelectByFinger leanSelectByFinger;
     [SerializeField] private VisualCondition visualCondition;
+    
     private ItemSlider parentSlider;
     private LeanFinger currentFinger;
     private Vector3 fingerDownPosition;
     private bool hasDraggedEnough = false;
+    
     public Bounds Bounds => this.spriteRenderer.bounds;
 
     void Start()
@@ -28,14 +32,14 @@ public class SliderItemSelector : MonoBehaviour
 
     void OnEnable()
     {
-        LeanTouch.OnFingerDown += OnFingerDown;
+        // LeanTouch.OnFingerDown += OnFingerDown;
         LeanTouch.OnFingerUpdate += OnFingerUpdate;
         LeanTouch.OnFingerUp += OnFingerUp;
     }
 
     void OnDisable()
     {
-        LeanTouch.OnFingerDown -= OnFingerDown;
+        // LeanTouch.OnFingerDown -= OnFingerDown;
         LeanTouch.OnFingerUpdate -= OnFingerUpdate;
         LeanTouch.OnFingerUp -= OnFingerUp;
     }
@@ -53,9 +57,31 @@ public class SliderItemSelector : MonoBehaviour
         }
     }
 
+    public void StartDragging(LeanFinger finger)
+    {
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
+        worldPos.z = 0f;
+
+        if (Bounds.Contains(worldPos))
+        {
+            this.currentFinger = finger;
+            this.fingerDownPosition = worldPos;
+            this.hasDraggedEnough = false;
+        }
+    }
+
     private void OnFingerUpdate(LeanFinger finger)
     {
         if (finger != this.currentFinger) return;
+        if (this.parentSlider == null) return;
+
+        // Nếu slider đã quyết định SLIDE -> không cho drag item
+        if (this.parentSlider.HasDecidedToSlide())
+        {
+            this.currentFinger = null;
+            this.hasDraggedEnough = false;
+            return;
+        }
 
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
         worldPos.z = 0f;
@@ -69,10 +95,7 @@ public class SliderItemSelector : MonoBehaviour
                 this.hasDraggedEnough = true;
 
                 // Thông báo cho slider biết item đang được chọn để drag
-                if (this.parentSlider != null)
-                {
-                    this.parentSlider.NotifyItemDragStart(finger);
-                }
+                this.parentSlider.NotifyItemDragStart(finger);
 
                 // Trigger Unity Event - script khác sẽ xử lý drag
                 this.OnItemReadyToDrag?.Invoke();
@@ -116,7 +139,6 @@ public class SliderItemSelector : MonoBehaviour
             this.parentSlider.RemoveItemFromList(this);
             this.gameObject.SetActive(false);
         }
-
 
         this.currentFinger = null;
         this.hasDraggedEnough = false;

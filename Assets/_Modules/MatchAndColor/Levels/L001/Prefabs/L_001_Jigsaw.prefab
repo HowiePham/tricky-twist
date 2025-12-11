@@ -208,10 +208,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSpacing: 5
-  slideSpeed: 2
+  slideSpeed: 1
   snapSpeed: 10
   enableSnapping: 1
   spriteRenderer: {fileID: 8521488016524666385}
+  directionDetectionThreshold: 0.1
+  horizontalAngleThreshold: 25
   itemContainer: {fileID: 2113361088203983163}
   sliderItemSelectors:
   - {fileID: 5196406015431233463}
@@ -265,7 +267,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 10.62, y: 4.12}
+  m_Size: {x: 10.62, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
