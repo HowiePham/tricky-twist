@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 0.05
-  sortingOrder: 10
+  sortingOrder: 6
   cardSpriteRenderer: {fileID: 3904108742031749250}
 --- !u!212 &3904108742031749250
 SpriteRenderer:
