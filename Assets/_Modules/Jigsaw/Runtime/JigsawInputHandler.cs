@@ -32,6 +32,11 @@ public class JigsawInputHandler : MonoBehaviour
     {
         this.cardMatrix = cardMatrix;
         this.positions = positions;
+
+        foreach (Card card in this.cardMatrix)
+        {
+            CheckCardCanConnect(card);
+        }
     }
 
     private void FingerUpdateHandler(LeanFinger finger)
@@ -111,6 +116,7 @@ public class JigsawInputHandler : MonoBehaviour
         PlaySound(this.placeSoundKey);
 
         CheckCardCanConnect(selectedCard);
+        CheckCardCanConnect(targetCard);
         OnCardSwapped?.Invoke();
     }
 
@@ -165,6 +171,7 @@ public class JigsawInputHandler : MonoBehaviour
             neighborCol < 0 || neighborCol >= maxCol)
         {
             Debug.Log($"  [{dirToTarget}] Out of bounds");
+            currentCard.UpdateOutline(dirToTarget, false);
             return;
         }
 
@@ -172,6 +179,7 @@ public class JigsawInputHandler : MonoBehaviour
         if (neighborCard == null)
         {
             Debug.Log($"  [{dirToTarget}] No card");
+            currentCard.UpdateOutline(dirToTarget, false);
             return;
         }
 
@@ -179,13 +187,18 @@ public class JigsawInputHandler : MonoBehaviour
         MatrixPos correctPosNeighbor = neighborCard.CorrectMatrixPos;
 
         bool canConnect = currentCardCorrectPos.IsNeighborPos(correctPosNeighbor, maxRow, maxCol, out Direction neighborDirection);
+        correctPosNeighbor.IsNeighborPos(currentCardCorrectPos, maxRow, maxCol, out Direction neighborDirectionToTarget);
 
         if (canConnect && neighborDirection == dirToTarget)
         {
+            currentCard.UpdateOutline(dirToTarget, false);
+            neighborCard.UpdateOutline(neighborDirectionToTarget, false);
             Debug.Log($"  [{dirToTarget}] ✓ CAN CONNECT! Neighbor correct pos: ({correctPosNeighbor.Row}, {correctPosNeighbor.Column}) --- {neighborCard.gameObject.name} --- {neighborDirection}");
         }
         else
         {
+            currentCard.UpdateOutline(dirToTarget, true);
+            neighborCard.UpdateOutline(neighborDirectionToTarget, true);
             Debug.Log($"  [{dirToTarget}] ✗ Cannot connect. Neighbor correct pos: ({correctPosNeighbor.Row}, {correctPosNeighbor.Column}) --- {neighborCard.gameObject.name} --- {neighborDirection}");
         }
     }
