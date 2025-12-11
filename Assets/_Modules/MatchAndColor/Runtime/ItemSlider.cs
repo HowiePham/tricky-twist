@@ -28,6 +28,9 @@ public class ItemSlider : MonoBehaviour
     private LeanFinger currentFinger;
     private bool isItemBeingDragged = false;
 
+    // Cache các khoảng cách thực tế của từng item
+    private List<float> itemPositions = new List<float>();
+
     void Start()
     {
         if (this.itemContainer == null)
@@ -35,6 +38,7 @@ public class ItemSlider : MonoBehaviour
             this.itemContainer = this.transform;
         }
 
+        CalculateItemPositions();
         UpdateItemPositions();
     }
 
@@ -61,6 +65,38 @@ public class ItemSlider : MonoBehaviour
         LeanTouch.OnFingerDown -= OnFingerDown;
         LeanTouch.OnFingerUpdate -= OnFingerUpdate;
         LeanTouch.OnFingerUp -= OnFingerUp;
+    }
+
+    private void CalculateItemPositions()
+    {
+        itemPositions.Clear();
+
+        if (this.sliderItemSelectors.Count == 0) return;
+
+        float currentPos = 0f;
+
+        for (int i = 0; i < this.sliderItemSelectors.Count; i++)
+        {
+            itemPositions.Add(currentPos);
+
+            var item = this.sliderItemSelectors[i];
+            if (item != null)
+            {
+                float halfWidth = item.Bounds.size.x / 2f;
+
+                float nextHalfWidth = 0f;
+                if (i + 1 < this.sliderItemSelectors.Count)
+                {
+                    var nextItem = this.sliderItemSelectors[i + 1];
+                    if (nextItem != null)
+                    {
+                        nextHalfWidth = nextItem.Bounds.size.x / 2f;
+                    }
+                }
+
+                currentPos += halfWidth + this.itemSpacing + nextHalfWidth;
+            }
+        }
     }
 
     private void OnFingerDown(LeanFinger finger)
@@ -100,9 +136,9 @@ public class ItemSlider : MonoBehaviour
         float delta = worldPos.x - dragStartPosition.x;
         this.currentOffset += delta * slideSpeed;
 
-        if (this.sliderItemSelectors.Count > 0)
+        if (itemPositions.Count > 0)
         {
-            float maxOffset = (this.sliderItemSelectors.Count - 1) * itemSpacing;
+            float maxOffset = itemPositions[itemPositions.Count - 1];
             this.currentOffset = Mathf.Clamp(this.currentOffset, -maxOffset, 0f);
         }
 
@@ -145,18 +181,23 @@ public class ItemSlider : MonoBehaviour
 
     private void UpdateItemPositions()
     {
+        if (itemPositions.Count != this.sliderItemSelectors.Count)
+        {
+            CalculateItemPositions();
+        }
+
         for (int i = 0; i < this.sliderItemSelectors.Count; i++)
         {
             if (this.sliderItemSelectors[i] == null) continue;
 
-            float targetX = i * itemSpacing + this.currentOffset;
+            float targetX = itemPositions[i] + this.currentOffset;
             Vector3 pos = this.sliderItemSelectors[i].transform.localPosition;
             pos.x = targetX;
             this.sliderItemSelectors[i].transform.localPosition = pos;
 
-            float distanceFromCenter = Mathf.Abs(targetX);
-            float scale = Mathf.Lerp(1f, 0.7f, distanceFromCenter / (itemSpacing * 2));
-            this.sliderItemSelectors[i].transform.localScale = Vector3.one * scale;
+            // float distanceFromCenter = Mathf.Abs(targetX);
+            // float scale = Mathf.Lerp(1f, 0.7f, distanceFromCenter / (this.itemSpacing * 2));
+            // this.sliderItemSelectors[i].transform.localScale = Vector3.one * scale;
         }
     }
 
@@ -184,10 +225,14 @@ public class ItemSlider : MonoBehaviour
 
     private void SnapToNearestItem()
     {
-        if (this.sliderItemSelectors.Count == 0) return;
+        if (this.sliderItemSelectors.Count == 0 || itemPositions.Count == 0) return;
 
-        this.targetOffset = -centerItemIndex * itemSpacing;
-        this.targetOffset = Mathf.Clamp(this.targetOffset, -(this.sliderItemSelectors.Count - 1) * itemSpacing, 0f);
+        // Snap đến vị trí thực tế của item gần nhất
+        this.targetOffset = -itemPositions[centerItemIndex];
+
+        // Clamp để không vượt quá giới hạn
+        float maxOffset = itemPositions[itemPositions.Count - 1];
+        this.targetOffset = Mathf.Clamp(this.targetOffset, -maxOffset, 0f);
     }
 
     private bool IsInSliderArea(Vector3 worldPos)
@@ -217,6 +262,8 @@ public class ItemSlider : MonoBehaviour
     public void RemoveItemFromList(SliderItemSelector sliderItemSelector)
     {
         this.sliderItemSelectors.Remove(sliderItemSelector);
+        // Tính lại positions sau khi remove
+        CalculateItemPositions();
     }
 
 #if UNITY_EDITOR
@@ -224,6 +271,19 @@ public class ItemSlider : MonoBehaviour
     private void GetAllItemSlider()
     {
         this.sliderItemSelectors = GetComponentsInChildren<SliderItemSelector>().ToList();
+        CalculateItemPositions();
+    }
+
+    [Button]
+    private void RecalculatePositions()
+    {
+        CalculateItemPositions();
+        Debug.Log($"Recalculated {itemPositions.Count} item positions");
+        for (int i = 0; i < itemPositions.Count; i++)
+        {
+            Debug.Log($"Item {i}: Position = {itemPositions[i]}");
+            this.sliderItemSelectors[i].transform.localPosition = new Vector3(itemPositions[i], 0, 0);
+        }
     }
 #endif
 }

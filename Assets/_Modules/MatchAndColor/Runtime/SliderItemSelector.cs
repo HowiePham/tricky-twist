@@ -1,3 +1,4 @@
+using System;
 using Lean.Touch;
 using Mimi.VisualActions;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class SliderItemSelector : MonoBehaviour
     private LeanFinger currentFinger;
     private Vector3 fingerDownPosition;
     private bool hasDraggedEnough = false;
+    public Bounds Bounds => this.spriteRenderer.bounds;
 
     void Start()
     {
@@ -43,7 +45,7 @@ public class SliderItemSelector : MonoBehaviour
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
         worldPos.z = 0f;
 
-        if (this.spriteRenderer.bounds.Contains(worldPos))
+        if (Bounds.Contains(worldPos))
         {
             this.currentFinger = finger;
             this.fingerDownPosition = worldPos;
@@ -119,4 +121,12 @@ public class SliderItemSelector : MonoBehaviour
         this.currentFinger = null;
         this.hasDraggedEnough = false;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(this.Bounds.center, this.Bounds.size);
+    }
+#endif
 }
